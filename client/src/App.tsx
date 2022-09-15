@@ -10,7 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import AddShoppingCart from '@material-ui/icons/AddShoppingCart';
 import Badge from '@material-ui/core/Badge';
 
-import { Wrapper } from './App.styles'
+import { Wrapper, StyledButton } from './App.styles'
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 
@@ -30,6 +30,9 @@ const getProducts = async (): Promise<CartItemType[]> => {
 }
 
 const App = () => {
+
+	const [cartOpen, setCartOpen] = useState(false);
+	const [cartItems, setCartItems] = useState([] as CartItemType[]);
 
 	const { data, isLoading, error } = useQuery<CartItemType[]>('products', getProducts);
 	console.log(data)
@@ -58,10 +61,18 @@ const App = () => {
 
 	return (
 		<Wrapper>
+			<Drawer anchor='right' open={cartOpen} onClose={() => setCartOpen(false)}>
+				Cart goes here
+			</Drawer>
+			
+			<StyledButton onClick={() => setCartOpen(true)}>
+				Cart
+			</StyledButton>
+
 			<Grid container spacing={3}>
 				{data?.map(item => (
 					<Grid item key={item.id} xs={12} sm={4}>
-						<Item item={item} handleAddToCart={}
+						<Item item={item} handleAddToCart={handleAddToCart} />
 					</Grid>
 				))}
 
