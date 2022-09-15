@@ -37,7 +37,9 @@ const App = () => {
 	const { data, isLoading, error } = useQuery<CartItemType[]>('products', getProducts);
 	console.log(data)
 
-	const getTotalItems = () => null;
+	const getTotalItems = (items: CartItemType[]) => {
+		return items.reduce((ack: number, item) => ack + item.amount, 0);
+	}
 
 	const handleAddToCart = () => null;
 
@@ -64,9 +66,13 @@ const App = () => {
 			<Drawer anchor='right' open={cartOpen} onClose={() => setCartOpen(false)}>
 				Cart goes here
 			</Drawer>
-			
+
 			<StyledButton onClick={() => setCartOpen(true)}>
-				Cart
+				<Badge badgeContent={getTotalItems(cartItems)} color='error'>
+					<AddShoppingCart>
+
+					</AddShoppingCart>
+				</Badge>
 			</StyledButton>
 
 			<Grid container spacing={3}>
