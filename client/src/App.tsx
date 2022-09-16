@@ -6,104 +6,14 @@ import Item from './components/item/Item'
 import Cart from './components/cart/Cart'
 
 import Drawer from '@material-ui/core/Drawer';
-import inearProgress from '@material-ui/core/LinearProgress';
 import Grid from '@material-ui/core/Grid';
 import AddShoppingCart from '@material-ui/icons/AddShoppingCart';
 import Badge from '@material-ui/core/Badge';
+import Button from '@material-ui/core/Button/Button';
 
 import { Wrapper, StyledButton } from './App.styles'
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-
-// export type CartItemType = {
-// 	id: number;
-// 	catergory: string;
-// 	description: string;
-// 	image: string;
-// 	price: number;
-// 	title: string;
-// 	amount: number;
-// }
-
-
-// const getProducts = async (): Promise<CartItemType[]> => {
-// 	return await (await fetch('https://fakestoreapi.com/products')).json();
-// }
-
-// const App = () => {
-
-// 	const [cartOpen, setCartOpen] = useState(false);
-// 	const [cartItems, setCartItems] = useState([] as CartItemType[]);
-
-// 	const { data, isLoading, error } = useQuery<CartItemType[]>('products', getProducts);
-// 	console.log(data)
-
-
-// 	const getTotalItems = (items: CartItemType[]) => {
-// 		return items.reduce((ack: number, item) => ack + item.amount, 0);
-// 	}
-
-// 	const handleAddToCart = (clickedItem: CartItemType) => {
-// 		setCartItems(prev => {
-// 			const isIteminCart = prev.find(item => item.id === clickedItem.id);
-
-// 			if (isIteminCart) {
-// 				return prev.map(item => {
-// 					Item.id = clickedItem.id ? { ...item, amount: Item.amount + 1 } : Item;
-// 				})
-// 			}
-
-// 			return [...prev, { ...clickedItem, amount: 1 }];
-// 		})
-// 	};
-
-// 	const handleRemoveFromCart = () => null;
-
-
-// 	if (isLoading) {
-// 		return (
-// 			<LinearProgress />
-// 		)
-// 	}
-
-
-// 	if (error) {
-// 		return (
-// 			<div><h2>Error, something went wrong... :(</h2></div>
-// 		)
-// 	}
-
-
-
-// 	return (
-// 		<Wrapper>
-// 			<Drawer anchor='right' open={cartOpen} onClose={() => setCartOpen(false)}>
-// 				<Cart
-// 					cartItems={cartItems}
-// 					addToCart={handleAddToCart}
-// 					removeFromCart={handleRemoveFromCart} />
-// 			</Drawer>
-
-// 			<StyledButton onClick={() => setCartOpen(true)}>
-// 				<Badge badgeContent={getTotalItems(cartItems)} color='error'>
-// 					<AddShoppingCart />
-// 				</Badge>
-// 			</StyledButton>
-
-// 			<Grid container spacing={3}>
-// 				{data?.map(item => (
-// 					<Grid item key={item.id} xs={12} sm={4}>
-// 						<Item item={item} handleAddToCart={handleAddToCart} />
-// 					</Grid>
-// 				))}
-
-
-// 			</Grid>
-// 		</Wrapper>
-// 	);
-// }
-
-// export default App;
 
 
 export type CartItemType = {
@@ -133,7 +43,7 @@ const App = () => {
 
 	const handleAddToCart = (clickedItem: CartItemType) => {
 		setCartItems(prev => {
-			// 1. Is the item already added in the cart?
+
 			const isItemInCart = prev.find(item => item.id === clickedItem.id);
 
 			if (isItemInCart) {
@@ -143,7 +53,7 @@ const App = () => {
 						: item
 				);
 			}
-			// First time the item is added
+
 			return [...prev, { ...clickedItem, amount: 1 }];
 		});
 	};
@@ -167,6 +77,19 @@ const App = () => {
 	return (
 		<Wrapper>
 			<Drawer anchor='right' open={cartOpen} onClose={() => setCartOpen(false)}>
+				<Button
+					style={{
+						padding: '10px',
+						margin: '10px',
+						color: 'red',
+						
+					}}
+					onClick={() => setCartOpen(false)}
+					variant="outlined"
+					size="medium"
+				>
+					Close
+				</Button>
 				<Cart
 					cartItems={cartItems}
 					addToCart={handleAddToCart}
