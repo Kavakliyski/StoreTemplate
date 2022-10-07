@@ -14,8 +14,6 @@ import Button from '@material-ui/core/Button/Button';
 import { Wrapper, StyledButton } from './App.styles'
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-
-
 export type CartItemType = {
 	id: number;
 	category: string;
@@ -100,7 +98,9 @@ const App = () => {
 				<Badge overlap="rectangular" badgeContent={getTotalItems(cartItems)} color='error' >
 					<AddShoppingCart />
 				</Badge>
+			
 			</StyledButton>
+
 			<Grid container spacing={3}>
 				{data?.map(item => (
 					<Grid item key={item.id} xs={12} sm={4}>
